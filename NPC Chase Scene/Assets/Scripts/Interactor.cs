@@ -12,14 +12,9 @@ public class Interactor : MonoBehaviour
     public Image interactImage;
     public Sprite defaultIcon;
     public Sprite defaultInteractIcon;
-    public GameObject[] ouroboros;
-    public GameObject[] ouroborosCollected;
-    public GameObject endDoor;
-    public bool changeRoom = false;
-    public int progress = 0;
+    public GameObject piece;
     public AudioSource pickup;
     public AudioSource doorHandle;
-    public AudioSource ding;
 
 
     // Update is called once per frame
@@ -48,17 +43,15 @@ public class Interactor : MonoBehaviour
                 
                 if(Input.GetKeyDown(KeyCode.E))
                 {
-                    if(endDoor.activeInHierarchy)
+                    if(!piece.activeInHierarchy) // will need to change to a different trigger (door is always active now)
                     {
                         doorHandle.Play();
                     }
                     else
                     {
                         pickup.Play(0);
-                        changeRoom = true;
-                        ouroboros[progress].SetActive(false);
-                        ouroborosCollected[progress].SetActive(true);
-                        ding.Play();
+                        piece.SetActive(false);
+                        //ouroborosCollected[progress].SetActive(true);
                     }
                 }
             }

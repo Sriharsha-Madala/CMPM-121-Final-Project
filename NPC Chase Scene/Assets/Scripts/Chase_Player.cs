@@ -5,7 +5,6 @@ using UnityEngine;
 public class Chase_Player : MonoBehaviour
 {
     public GameObject musicChanger;
-    public GameObject[] teleporters;
     public GameObject Enemy;
     public BoxCollider killZone;
     public GameObject Player;
@@ -18,7 +17,6 @@ public class Chase_Player : MonoBehaviour
     int current;
     bool resume;
     Animator enemyAnim;
-    //Quaternion rotation;
 
 
     void Start()
@@ -34,11 +32,9 @@ public class Chase_Player : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            if(piece.activeInHierarchy)
+            if(!piece.activeInHierarchy)
             {
                 chase = true;
-                teleporters[0].SetActive(false);
-                teleporters[1].SetActive(false);
                 killZone.enabled = true;
                 musicChanger.SetActive(true);
                 enemyAnim.SetBool("Chasing", true);
@@ -68,7 +64,6 @@ public class Chase_Player : MonoBehaviour
                     if(Enemy.transform.position != points[current].position)
                     {
                         Enemy.transform.position = Vector3.MoveTowards(Enemy.transform.position, points[current].position, speed * Time.deltaTime);
-                        print(current);
                     }
                     else
                     {
@@ -78,16 +73,21 @@ public class Chase_Player : MonoBehaviour
                             current += 1; 
                         }
                         current += 1;
-                        //rotation = Quaternion.FromToRotation(Enemy.transform.forward, points[current].position - Enemy.transform.position);
                     }
                 }
                 else 
                 {
-                    Enemy.transform.rotation = Quaternion.RotateTowards(Enemy.transform.rotation, Quaternion.Euler(new Vector3(0, 90, 0)), (speed * 50) * Time.deltaTime);
+                    if(current == 1)
+                    {   //turn enemy right
+                        Enemy.transform.rotation = Quaternion.RotateTowards(Enemy.transform.rotation, Quaternion.Euler(new Vector3(0, 90, 0)), (speed * 50) * Time.deltaTime);
+                    }
+                    else
+                    {   // turn enemy left
+                        Enemy.transform.rotation = Quaternion.RotateTowards(Enemy.transform.rotation, Quaternion.Euler(new Vector3(0, -90, 0)), (speed * 50) * Time.deltaTime); 
+                    }
                     StartCoroutine(Delay_Action(delayTime));
                     if(resume == true)
                     {
-                        print("resume == true");
                         Enemy.transform.position = Vector3.MoveTowards(Enemy.transform.position, points[current].position, (speed * 5) * Time.deltaTime);
                     }
 

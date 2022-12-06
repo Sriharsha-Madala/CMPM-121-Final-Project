@@ -41,12 +41,6 @@ public class Enemy : MonoBehaviour
                 }
                 yield return null;
             }
-            /*
-            if(blackOutSquare.GetComponent<Image>().color.a == 1)
-            {
-                 SceneManager.LoadScene (sceneName:"DeathScene");
-            }
-            */
         }
     }
 }
