@@ -14,7 +14,7 @@ public class Interactor : MonoBehaviour
     public Sprite defaultInteractIcon;
     public GameObject piece;
     public AudioSource pickup;
-    public AudioSource doorHandle;
+    public AudioSource[] doorHandle;
 
 
     // Update is called once per frame
@@ -45,7 +45,8 @@ public class Interactor : MonoBehaviour
                 {
                     if(!piece.activeInHierarchy) // will need to change to a different trigger (door is always active now)
                     {
-                        doorHandle.Play();
+                        doorHandle[0].Play();
+                        doorHandle[1].Play();
                     }
                     else
                     {

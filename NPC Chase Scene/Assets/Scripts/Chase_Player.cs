@@ -9,6 +9,7 @@ public class Chase_Player : MonoBehaviour
     public BoxCollider killZone;
     public GameObject Player;
     public GameObject piece;
+    public GameObject[] lights;
     public Transform[] points;
     public float speed;
     public float delayTime;
@@ -17,6 +18,7 @@ public class Chase_Player : MonoBehaviour
     int current;
     bool resume;
     Animator enemyAnim;
+
 
 
     void Start()
@@ -34,11 +36,16 @@ public class Chase_Player : MonoBehaviour
         {
             if(!piece.activeInHierarchy)
             {
+                for(int i = 0; i < lights.Length; i += 1)
+                {
+                    lights[i].SetActive(true);
+                }
                 chase = true;
                 killZone.enabled = true;
                 musicChanger.SetActive(true);
                 enemyAnim.SetBool("Chasing", true);
                 monsterAudio.enabled = true;
+
             }
         }
     }
